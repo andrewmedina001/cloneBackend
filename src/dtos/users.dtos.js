@@ -23,6 +23,7 @@ export const userRequestDTO = (body) => {
     errors.push("Nationality is required")
   }
   if(errors.length !== 0){
+    console.log(errors)
     throw new Error(errors)
   } else {
     return body

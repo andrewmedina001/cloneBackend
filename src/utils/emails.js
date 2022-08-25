@@ -17,9 +17,10 @@ export const validateEmail = async ({ recipient, name, lastname, token }) => {
       subject: "Please confirm your email",
       text: `Hi ${name} ${lastname}, please confirm your email trough the following link: http://myfrontdotcom?token=${token}`,
     });
-    // console.log(result);
+    console.log(result);
   } catch (error) {
-    // console.log(error.message);
+    console.log("erroe en la validacion del Email")
+    console.log(error.message);
   }
 };
 

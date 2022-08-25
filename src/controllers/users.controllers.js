@@ -29,6 +29,7 @@ export const getUsers = async (req, res)=> {
   }
 }
 
+// createUser
 export const postUser = async (req, res) => {
   try {
     const { password, ...data } = userRequestDTO(req.body);
