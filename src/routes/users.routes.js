@@ -18,5 +18,11 @@ usersRouter
 
 usersRouter.post("/validate-user", validateUser);
 usersRouter.post("/change-password", changePassword);
+/**
+ * @swagger
+ * /api/ads/{id}:
+ * put:
+ * summary: Login
+ */
 usersRouter.post("/login", login);
 usersRouter.get("/profile", validateToken, profile);

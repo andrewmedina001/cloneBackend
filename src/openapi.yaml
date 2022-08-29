@@ -1,0 +1,215 @@
+
+openapi: 3.0.0
+info:
+  title: Textiles API
+  description: API con NodeJS y Express
+  version: 1.0.0
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: /
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+security:
+  - bearerAuth: []
+tags:
+  - name: Departamentos
+  - name: Trabajadores
+paths:
+  /departamentos:
+    get:
+      tags:
+        - Departamentos
+      summary: Devolver
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+      
+    post:
+      tags:
+        - Departamentos
+      summary: Crear
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                type: object
+                example:
+                  {
+                    "cat_name": "",
+                    "cat_desc": "",
+                    "cat_img":""
+                  }
+      security:
+        - bearerAuth: []
+      responses:
+        "201":
+          description: Successful response
+          content:
+            application/json: {}
+  /departamento/{id}:
+    parameters:
+      - name: id
+        in: path
+        description: Unique identifier of the group.
+        required: true
+        schema:
+          type: string
+    put:
+      tags:
+        - Departamentos
+      summary: Update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                nombre: Nombre de departamento
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Departamentos
+      summary: Delete
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    get:
+      tags:
+        - Departamentos
+      summary: Devolver con id
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /registro:
+    post:
+      tags:
+        - Trabajadores
+      summary: Crear
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                {
+                  "nombre": "nombre",
+                  "apellido": "apellido",
+                  "email": "email",
+                  "password": "password",
+                  "rol": "ROL",
+                  "departamentoId": "departamentoId",
+                }
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /validar-trabajador:
+    post:
+      tags:
+        - Trabajadores
+      summary: Validar
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                token: token
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /cambiar-password:
+    post:
+      tags:
+        - Trabajadores
+      summary: Cambiar password
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: email
+                oldPassword: oldPassword
+                newPassword: newPassword
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /login:
+    post:
+      tags:
+        - Trabajadores
+      summary: Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: email
+                password: password
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /me:
+    get:
+      tags:
+        - Trabajadores
+      summary: Perfil
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /registro-admin:
+    post:
+      tags:
+        - Trabajadores
+      summary: Crear Admin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                {
+                  "nombre": "nombre",
+                  "apellido": "apellido",
+                  "email": "email",
+                  "password": "password",
+                  "rol": "ROL",
+                  "departamentoId": "departamentoId",
+                }
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}

@@ -5,26 +5,16 @@ import { categoriesRouter } from './routes/categories.routes.js';
 import { productsRouter } from './routes/products.routes.js';
 import { usersRouter } from './routes/users.routes.js';
 import { paymentsRouter } from './routes/payments.routes.js';
+import { swaggerRouter } from './routes/swagger.routes.js';
 
-import swaggerUi from 'swagger-ui-express';
-import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUI from 'swagger-ui-express';
+import swaggerJsdoc from 'swagger-jsdoc';
+// import swagerDocument from './swagger.json' assert {type:"json"};
+// const swagerDocument = require('./swagger.json');
 
 const app = express();
 const PORT = process.env.PORT;
 
-const swaggerOptions={
-  swaggerDefinition: {
-    openapi:"3.0.0",
-    info: {
-      title: 'App de Javier Castillo',
-      version: '1.0.0',
-      description:'description of the project'
-    },
-    servers:[{url:"http://localhost:8000"}],
-  },
-  apis: ['./routes/*.js'], 
-}
-const swaggerDocs=swaggerJsDoc(swaggerOptions)
 
 app.use(
   cors({
@@ -34,31 +24,30 @@ app.use(
   })
 )
 
+
+const options = {
+  definition: {
+      openapi: '3.0.0',
+      info: {
+          title: 'Hello World',
+          version: '1.0.0',
+      },
+  },
+  apis: ['./src/routes*.js'],
+};
+
+const openapiSpecification = swaggerJsdoc(options);
+
+
 app.use(express.json());
 
-// app.get("/categories", async (req, res) => {
-//   try {
-//     const result = await PrismaConnector.category.findMany();
-//     console.log(result)
-//     return res.json({
-//       message: "Hi",
-//       result
-//     })
-//   } catch (error) {
-//     return res.status(400).json({
-//       message: "Something went wrong",
-//       result: error.message
-//     })
-//   }
-// })
 
 app.use(categoriesRouter)
 app.use(productsRouter)
 app.use(usersRouter)
 app.use(paymentsRouter)
-
-// 
-app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocs));
+app.use(swaggerRouter)
+app.use("/api-docs" , swaggerUI.serve, swaggerUI.setup(openapiSpecification))
 
 app.listen(PORT, ()=> {
   console.log(`Server running on port ${PORT}`);
